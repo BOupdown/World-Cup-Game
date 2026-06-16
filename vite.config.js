@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: process.env.GITHUB_ACTIONS ? '/world-cup-quiz/' : '/',
+  base: process.env.GITHUB_ACTIONS ? '/World-Cup-Game/' : '/',
   server: {
     port: parseInt(process.env.PORT || '5173'),
     strictPort: false,
