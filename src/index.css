@@ -1,0 +1,48 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --green:   #00A550;
+  --green2:  #00C853;
+  --yellow:  #FFD700;
+  --gold:    #F5A623;
+  --red:     #E8001C;
+  --red2:    #FF1744;
+  --white:   #FFFFFF;
+  --dark:    #0a1a0d;
+  --darker:  #060f08;
+  --card:    rgba(255,255,255,0.08);
+  --glass:   rgba(255,255,255,0.06);
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--darker);
+  font-family: 'Exo 2', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button {
+  font-family: 'Exo 2', sans-serif;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+::-webkit-scrollbar { display: none; }
+
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+}
