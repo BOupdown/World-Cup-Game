@@ -3,9 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import HomeScreen     from './screens/HomeScreen.jsx';
 import GameScreen     from './screens/GameScreen.jsx';
 import GameOverScreen from './screens/GameOverScreen.jsx';
+import LearnScreen    from './screens/LearnScreen.jsx';
 import { useSound }   from './hooks/useSound.js';
 
-const SCREEN = { HOME: 'home', GAME: 'game', GAMEOVER: 'gameover' };
+const SCREEN = { HOME: 'home', GAME: 'game', GAMEOVER: 'gameover', LEARN: 'learn' };
 const HS_KEY = 'wcq_highscore';
 
 function loadHighScore() {
@@ -63,6 +64,7 @@ export default function App() {
 
   const handleReplay = useCallback(() => navigate(SCREEN.GAME, -1), []);
   const handleHome   = useCallback(() => navigate(SCREEN.HOME, -1), []);
+  const handleLearn  = useCallback(() => navigate(SCREEN.LEARN, 1), []);
 
   return (
     <div style={{
@@ -78,6 +80,7 @@ export default function App() {
             style={{ position: 'absolute', inset: 0 }}>
             <HomeScreen
               onPlay={handlePlay}
+              onLearn={handleLearn}
               sfxVol={sfxVol}   setSfxVol={setSfxVol}
               musicVol={musicVol} setMusicVol={handleSetMusicVol}
               highScore={highScore}
@@ -91,11 +94,20 @@ export default function App() {
             style={{ position: 'absolute', inset: 0 }}>
             <GameScreen
               onGameOver={handleGameOver}
+              onQuit={handleHome}
               playSfx={playSfx}
               musicMuted={musicMuted}
               onToggleMute={handleToggleMute}
               highScore={highScore}
             />
+          </motion.div>
+        )}
+        {screen === SCREEN.LEARN && (
+          <motion.div key="learn" custom={dir} variants={PAGE_VARIANTS}
+            initial="initial" animate="animate" exit="exit"
+            transition={{ duration: 0.34, ease: [0.25,0.46,0.45,0.94] }}
+            style={{ position: 'absolute', inset: 0 }}>
+            <LearnScreen onBack={handleHome} onPlay={handlePlay}/>
           </motion.div>
         )}
         {screen === SCREEN.GAMEOVER && (

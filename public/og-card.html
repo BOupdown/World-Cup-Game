@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background:
+      radial-gradient(ellipse at 50% 120%, #003300 0%, transparent 55%),
+      radial-gradient(ellipse at 15% 0%, #8B000033 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 0%, #FFD70033 0%, transparent 50%),
+      linear-gradient(160deg, #0a1f0d 0%, #0d1500 45%, #150000 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 80px;
+  }
+  /* grass lines */
+  .grass {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 30%;
+    background: repeating-linear-gradient(0deg,
+      rgba(0,165,80,0.08) 0px, rgba(0,165,80,0.08) 16px,
+      rgba(0,80,20,0.04) 16px, rgba(0,80,20,0.04) 32px);
+  }
+  .glow-r { position:absolute; top:-120px; left:-120px; width:360px; height:360px;
+    border-radius:50%; background:radial-gradient(circle,#E8001C44,transparent 70%); }
+  .glow-y { position:absolute; top:-80px; right:-80px; width:320px; height:320px;
+    border-radius:50%; background:radial-gradient(circle,#FFD70044,transparent 70%); }
+
+  .left { position: relative; z-index: 2; max-width: 620px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(135deg, #E8001C, #B30016);
+    border-radius: 99px; padding: 8px 22px; margin-bottom: 24px;
+    box-shadow: 0 4px 20px #E8001C66;
+  }
+  .badge span { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: 4px; }
+  h1 {
+    font-family: 'Orbitron', sans-serif; font-weight: 900;
+    font-size: 92px; line-height: 0.98; letter-spacing: 1px;
+    background: linear-gradient(135deg, #00C853 0%, #FFD700 50%, #E8001C 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 16px rgba(255,215,0,0.35));
+    margin-bottom: 24px;
+  }
+  .tagline { font-size: 26px; color: rgba(255,255,255,0.85); font-weight: 600; line-height: 1.4; margin-bottom: 28px; }
+  .tagline b { color: #FFD700; }
+  .chips { display: flex; gap: 12px; flex-wrap: wrap; }
+  .chip {
+    background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.18);
+    border-radius: 12px; padding: 10px 18px; font-size: 18px; font-weight: 700; color: #fff;
+  }
+
+  /* Trophy */
+  .right { position: relative; z-index: 2; filter: drop-shadow(0 0 50px #FFD70099); }
+  svg { display: block; }
+</style>
+</head>
+<body>
+  <div class="grass"></div>
+  <div class="glow-r"></div>
+  <div class="glow-y"></div>
+
+  <div class="left">
+    <div class="badge"><span>⚽ FIFA 2026 ⚽</span></div>
+    <h1>WORLD CUP<br/>QUIZ</h1>
+    <div class="tagline">Le quiz football <b>addictif</b> en mode survie infini.<br/>Réponds vite. Enchaîne les séries. Bats ton record.</div>
+    <div class="chips">
+      <div class="chip">⚡ Score de vitesse</div>
+      <div class="chip">🔥 Multiplicateurs</div>
+      <div class="chip">🎵 Web Audio API</div>
+    </div>
+  </div>
+
+  <div class="right">
+    <svg viewBox="0 0 220 300" width="300" height="409" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FFF0A0"/><stop offset="30%" stop-color="#FFD700"/>
+          <stop offset="65%" stop-color="#C8960C"/><stop offset="100%" stop-color="#FFD700"/>
+        </linearGradient>
+        <linearGradient id="goldDark" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#E8B800"/><stop offset="50%" stop-color="#9A6B00"/><stop offset="100%" stop-color="#C8960C"/>
+        </linearGradient>
+        <radialGradient id="globe" cx="40%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#A8E6FF"/><stop offset="40%" stop-color="#4FC3F7"/><stop offset="100%" stop-color="#0277BD"/>
+        </radialGradient>
+        <clipPath id="globeClip"><circle cx="110" cy="52" r="32"/></clipPath>
+      </defs>
+      <rect x="68" y="270" width="84" height="14" rx="4" fill="url(#goldDark)"/>
+      <rect x="62" y="252" width="96" height="10" rx="3" fill="#1B5E20"/>
+      <rect x="64" y="253" width="92" height="3" rx="1" fill="#2E7D32"/>
+      <rect x="58" y="238" width="104" height="10" rx="3" fill="#1B5E20"/>
+      <rect x="60" y="239" width="100" height="3" rx="1" fill="#388E3C"/>
+      <rect x="72" y="228" width="76" height="12" rx="3" fill="url(#gold)"/>
+      <path d="M97 228 Q95 200 92 175 L128 175 Q125 200 123 228 Z" fill="url(#gold)"/>
+      <path d="M80 175 Q85 168 110 165 Q135 168 140 175 Z" fill="url(#gold)"/>
+      <path d="M72 170 Q65 148 62 130 Q60 118 68 110 Q74 105 80 112 Q88 120 86 140 Q85 158 84 170 Z" fill="url(#gold)"/>
+      <path d="M68 112 Q58 98 64 82 Q68 74 75 76 Q82 80 80 92 Q78 102 80 112 Z" fill="url(#gold)"/>
+      <path d="M148 170 Q155 148 158 130 Q160 118 152 110 Q146 105 140 112 Q132 120 134 140 Q135 158 136 170 Z" fill="url(#gold)"/>
+      <path d="M152 112 Q162 98 156 82 Q152 74 145 76 Q138 80 140 92 Q142 102 140 112 Z" fill="url(#gold)"/>
+      <circle cx="110" cy="52" r="32" fill="url(#globe)"/>
+      <g clip-path="url(#globeClip)" fill="#2E7D32" opacity="0.85">
+        <path d="M90 35 Q87 42 88 52 Q89 62 92 68 Q96 74 98 68 Q100 60 99 50 Q98 40 95 34 Z"/>
+        <path d="M108 30 Q110 35 112 42 Q116 52 114 60 Q112 66 110 62 Q106 56 106 48 Q106 38 108 30 Z"/>
+        <path d="M118 32 Q122 36 126 42 Q130 50 128 56 Q124 60 120 55 Q117 48 118 40 Z"/>
+      </g>
+      <ellipse cx="100" cy="42" rx="10" ry="7" fill="rgba(255,255,255,0.35)" transform="rotate(-20 100 42)"/>
+      <circle cx="110" cy="52" r="32" fill="none" stroke="url(#gold)" stroke-width="2.5"/>
+      <path d="M76 76 Q88 64 95 58" stroke="url(#gold)" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M144 76 Q132 64 125 58" stroke="url(#gold)" stroke-width="7" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+</body>
+</html>

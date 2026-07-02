@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Particles from '../components/Particles.jsx';
+import { Flag } from '../components/Flag.jsx';
 import { haptic } from '../hooks/useHaptic.js';
 import { nextQuestion } from '../data/questions.js';
 
@@ -137,7 +138,7 @@ function AnswerButton({ text, index, onClick, selected, correct, revealed }) {
 }
 
 /* ── Main ── */
-export default function GameScreen({ onGameOver, playSfx, musicMuted, onToggleMute, highScore }) {
+export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, onToggleMute, highScore }) {
   const [q, setQ]               = useState(() => nextQuestion());
   const [score, setScore]       = useState(0);
   const [streak, setStreak]     = useState(0);
@@ -151,11 +152,30 @@ export default function GameScreen({ onGameOver, playSfx, musicMuted, onToggleMu
   const [cardKey, setCardKey]   = useState(0);
   const [lastPoints, setLastPoints] = useState(null);
   const [showPoints, setShowPoints] = useState(false);
+  const [showQuitConfirm, setShowQuitConfirm] = useState(false);
   const timerRef  = useRef(null);
   const advRef    = useRef(null);
   const timeRef   = useRef(TIME_LIMIT);
+  const pausedRef = useRef(false);
 
   const multiplier = streak >= 6 ? 3 : streak >= 3 ? 2 : 1;
+
+  /* ── Quit handlers ── */
+  const handleQuitRequest = useCallback(() => {
+    pausedRef.current = true;     // freeze countdown while deciding
+    setShowQuitConfirm(true);
+  }, []);
+
+  const handleQuitCancel = useCallback(() => {
+    pausedRef.current = false;    // resume countdown
+    setShowQuitConfirm(false);
+  }, []);
+
+  const handleQuitConfirm = useCallback(() => {
+    clearInterval(timerRef.current);
+    clearTimeout(advRef.current);
+    onQuit();
+  }, [onQuit]);
 
   /* ── Advance to next question ── */
   const advance = useCallback((newScore, newStreak) => {
@@ -218,6 +238,7 @@ export default function GameScreen({ onGameOver, playSfx, musicMuted, onToggleMu
     timeRef.current = TIME_LIMIT;
     setTimeLeft(TIME_LIMIT);
     timerRef.current = setInterval(() => {
+      if (pausedRef.current) return;   // frozen during quit confirmation
       timeRef.current -= 0.1;
       setTimeLeft(Math.max(0, timeRef.current));
       if (timeRef.current <= 0) {
@@ -288,6 +309,18 @@ export default function GameScreen({ onGameOver, playSfx, musicMuted, onToggleMu
           }}>
           {musicMuted ? '🔇' : '🎵'}
         </motion.button>
+
+        {/* Quit */}
+        <motion.button whileTap={{ scale: 0.88 }} onClick={handleQuitRequest}
+          style={{
+            width: 32, height: 32, borderRadius: 9, flexShrink: 0,
+            background: 'rgba(232,0,28,0.12)',
+            border: '1.5px solid rgba(232,0,28,0.35)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 15, fontWeight: 700, color: '#FF4560', cursor: 'pointer',
+          }}>
+          ✕
+        </motion.button>
       </div>
 
       {/* High score + streak row */}
@@ -323,7 +356,9 @@ export default function GameScreen({ onGameOver, playSfx, musicMuted, onToggleMu
             marginBottom: 12, zIndex: 1,
             boxShadow: '0 4px 28px rgba(0,0,0,0.4)',
           }}>
-          <div style={{ fontSize: 34, textAlign: 'center', marginBottom: 8 }}>{q.emoji}</div>
+          <div style={{ fontSize: 34, textAlign: 'center', marginBottom: 8, display: 'flex', justifyContent: 'center' }}>
+            <Flag emoji={q.emoji} size={34} style={{ borderRadius: 5 }}/>
+          </div>
           <p style={{
             fontSize: 'clamp(14px, 4vw, 17px)', fontWeight: 700,
             color: '#fff', textAlign: 'center', lineHeight: 1.4,
@@ -361,6 +396,66 @@ export default function GameScreen({ onGameOver, playSfx, musicMuted, onToggleMu
       {showPoints && lastPoints && (
         <PointsPopup points={lastPoints} multiplier={multiplier}/>
       )}
+
+      {/* ── QUIT CONFIRMATION ── */}
+      <AnimatePresence>
+        {showQuitConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={handleQuitCancel}
+            style={{
+              position: 'fixed', inset: 0, zIndex: 200,
+              background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24,
+            }}>
+            <motion.div
+              initial={{ scale: 0.85, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.85, y: 20 }}
+              transition={{ type: 'spring', bounce: 0.4 }}
+              onClick={e => e.stopPropagation()}
+              style={{
+                width: '100%', maxWidth: 320,
+                background: 'linear-gradient(160deg, #1a1208, #14100a)',
+                border: '1.5px solid rgba(255,215,0,0.25)',
+                borderRadius: 24, padding: '28px 24px', textAlign: 'center',
+                boxShadow: '0 12px 50px rgba(0,0,0,0.6)',
+              }}>
+              <div style={{ fontSize: 44, marginBottom: 10 }}>🏳️</div>
+              <div style={{
+                fontFamily: 'Orbitron, sans-serif', fontWeight: 900, fontSize: 17,
+                color: '#fff', marginBottom: 6, letterSpacing: 1,
+              }}>
+                Quitter la partie ?
+              </div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginBottom: 22, lineHeight: 1.4 }}>
+                Ton score de <span style={{ color: '#FFD700', fontWeight: 800 }}>{score}</span> points sera perdu.
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <motion.button whileTap={{ scale: 0.96 }} onClick={handleQuitConfirm}
+                  style={{
+                    padding: '14px 0', borderRadius: 14, border: 'none', cursor: 'pointer',
+                    background: 'linear-gradient(135deg, #E8001C, #FF4560)',
+                    color: '#fff', fontSize: 15, fontWeight: 900, letterSpacing: 2,
+                    boxShadow: '0 4px 18px #E8001C55',
+                  }}>
+                  QUITTER
+                </motion.button>
+                <motion.button whileTap={{ scale: 0.96 }} onClick={handleQuitCancel}
+                  style={{
+                    padding: '13px 0', borderRadius: 14,
+                    border: '1.5px solid rgba(255,255,255,0.18)',
+                    background: 'rgba(255,255,255,0.06)',
+                    color: 'rgba(255,255,255,0.85)', fontSize: 14, fontWeight: 700, letterSpacing: 1,
+                    cursor: 'pointer',
+                  }}>
+                  CONTINUER
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -187,7 +187,7 @@ function VolumeSlider({ label, icon, value, onChange, color }) {
 }
 
 /* ── Main HomeScreen ────────────────────────────────────────────────────── */
-export default function HomeScreen({ onPlay, sfxVol, setSfxVol, musicVol, setMusicVol, highScore }) {
+export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVol, setMusicVol, highScore }) {
   const [showOptions, setShowOptions] = useState(false);
   const [glow, setGlow] = useState(false);
 
@@ -318,6 +318,20 @@ export default function HomeScreen({ onPlay, sfxVol, setSfxVol, musicVol, setMus
             background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%)',
           }}/>
           ⚽  JOUER
+        </motion.button>
+
+        {/* LEARN */}
+        <motion.button
+          whileTap={{ scale: 0.97 }}
+          onClick={onLearn}
+          style={{
+            width: '100%', padding: '15px 0', borderRadius: 16,
+            background: 'rgba(255,215,0,0.08)',
+            border: '1.5px solid rgba(255,215,0,0.3)',
+            color: '#FFD700', fontSize: 15, fontWeight: 700, letterSpacing: 2,
+            cursor: 'pointer',
+          }}>
+          📚  APPRENDRE
         </motion.button>
 
         {/* OPTIONS */}
