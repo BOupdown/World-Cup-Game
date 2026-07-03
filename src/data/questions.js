@@ -147,7 +147,7 @@ function shuffleAnswers(q) {
   return { ...q, answers: shuffled, correct: shuffled.indexOf(correctText) };
 }
 
-/* Infinite question pool — reshuffles when exhausted */
+/* Infinite question pool - reshuffles when exhausted */
 let _pool = [];
 export function nextQuestion() {
   if (_pool.length === 0)

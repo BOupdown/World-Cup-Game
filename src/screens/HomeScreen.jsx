@@ -1,11 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
-/* ── Real FIFA World Cup Trophy SVG ─────────────────────────────────────────
-   Modelled after the iconic Silvio Gazzaniga design:
-   two human figures raising their arms to support the Earth globe.
-   Gold body, green malachite base rings.
-   ──────────────────────────────────────────────────────────────────────── */
+// World Cup trophy drawn in SVG: two figures holding up the globe,
+// gold body, green malachite rings on the base.
 const FIFA_TROPHY = (
   <svg viewBox="0 0 220 300" width="180" height="246" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -42,7 +39,7 @@ const FIFA_TROPHY = (
       </clipPath>
     </defs>
 
-    {/* ── BASE PLATFORM ── */}
+    {/* BASE PLATFORM */}
     {/* Bottom flat base */}
     <ellipse cx="110" cy="285" rx="52" ry="7" fill="#2a1a00" opacity="0.5"/>
     <rect x="68" y="270" width="84" height="14" rx="4" fill="url(#goldDark)"/>
@@ -61,7 +58,7 @@ const FIFA_TROPHY = (
     <rect x="72" y="228" width="76" height="12" rx="3" fill="url(#gold)"/>
     <rect x="74" y="229" width="72" height="3" rx="1" fill="rgba(255,255,255,0.3)"/>
 
-    {/* ── STEM / COLUMN ── */}
+    {/* STEM / COLUMN */}
     {/* Narrow gold column */}
     <path d="M97 228 Q95 200 92 175 L128 175 Q125 200 123 228 Z" fill="url(#gold)"/>
     <path d="M100 228 Q99 200 97 175 L103 175 Q104 200 103 228 Z" fill="rgba(255,255,255,0.2)"/>
@@ -70,8 +67,8 @@ const FIFA_TROPHY = (
     <path d="M80 175 Q85 168 110 165 Q135 168 140 175 Z" fill="url(#gold)"/>
     <path d="M82 175 Q87 170 110 167 Q133 170 138 175 Z" fill="rgba(255,255,255,0.15)"/>
 
-    {/* ── TWO HUMAN FIGURES ── */}
-    {/* Left figure — leaning outward, arm raised */}
+    {/* TWO HUMAN FIGURES */}
+    {/* Left figure - leaning outward, arm raised */}
     {/* Body */}
     <path d="M72 170 Q65 148 62 130 Q60 118 68 110 Q74 105 80 112 Q88 120 86 140 Q85 158 84 170 Z"
       fill="url(#gold)" filter="url(#softGlow)"/>
@@ -83,7 +80,7 @@ const FIFA_TROPHY = (
     {/* Shine on left figure */}
     <path d="M70 130 Q68 118 72 112" stroke="rgba(255,255,255,0.3)" strokeWidth="2" fill="none" strokeLinecap="round"/>
 
-    {/* Right figure — mirror */}
+    {/* Right figure - mirror */}
     <path d="M148 170 Q155 148 158 130 Q160 118 152 110 Q146 105 140 112 Q132 120 134 140 Q135 158 136 170 Z"
       fill="url(#gold)" filter="url(#softGlow)"/>
     {/* Right arm */}
@@ -94,7 +91,7 @@ const FIFA_TROPHY = (
     {/* Shine on right figure */}
     <path d="M150 130 Q152 118 148 112" stroke="rgba(255,255,255,0.3)" strokeWidth="2" fill="none" strokeLinecap="round"/>
 
-    {/* ── GLOBE ── */}
+    {/* GLOBE */}
     {/* Glow halo */}
     <circle cx="110" cy="52" r="40" fill="url(#globeGlow)"/>
     {/* Ocean */}
@@ -118,7 +115,7 @@ const FIFA_TROPHY = (
     <ellipse cx="110" cy="52" rx="32" ry="8" fill="none" stroke="rgba(255,215,0,0.3)" strokeWidth="1"/>
     <line x1="78" y1="52" x2="142" y2="52" stroke="rgba(255,215,0,0.25)" strokeWidth="1"/>
 
-    {/* ── ARMS CONNECTING TO GLOBE ── */}
+    {/* ARMS CONNECTING TO GLOBE */}
     <path d="M76 76 Q88 64 95 58" stroke="url(#gold)" strokeWidth="7" fill="none" strokeLinecap="round"/>
     <path d="M144 76 Q132 64 125 58" stroke="url(#gold)" strokeWidth="7" fill="none" strokeLinecap="round"/>
 
@@ -127,7 +124,7 @@ const FIFA_TROPHY = (
   </svg>
 );
 
-/* ── Floating confetti dots ─────────────────────────────────────────────── */
+/* Floating confetti dots */
 const CONFETTI_COLORS = ['#FFD700','#E8001C','#00A550','#FFFFFF','#FF8C00','#00C853'];
 
 function Confetti() {
@@ -164,7 +161,7 @@ function Confetti() {
   );
 }
 
-/* ── Volume slider ──────────────────────────────────────────────────────── */
+/* Volume slider */
 function VolumeSlider({ label, icon, value, onChange, color }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
@@ -186,7 +183,7 @@ function VolumeSlider({ label, icon, value, onChange, color }) {
   );
 }
 
-/* ── Main HomeScreen ────────────────────────────────────────────────────── */
+/* Main HomeScreen */
 export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVol, setMusicVol, highScore }) {
   const [showOptions, setShowOptions] = useState(false);
   const [glow, setGlow] = useState(false);
@@ -239,7 +236,7 @@ export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVo
         pointerEvents: 'none',
       }}/>
 
-      {/* ── HEADER ── */}
+      {/* HEADER */}
       <motion.div initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.65, ease: 'easeOut' }}
         style={{ textAlign: 'center', zIndex: 2 }}>
@@ -261,7 +258,7 @@ export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVo
           fontFamily: 'Orbitron, sans-serif',
           fontSize: 'clamp(30px, 9vw, 52px)',
           fontWeight: 900, lineHeight: 1.05, letterSpacing: 1,
-          /* Green → Yellow → Red diagonal — the 3 WC colors */
+          /* Green → Yellow → Red diagonal - the 3 WC colors */
           background: 'linear-gradient(135deg, #00C853 0%, #FFD700 50%, #E8001C 100%)',
           WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
           filter: 'drop-shadow(0 2px 12px rgba(255,215,0,0.4))',
@@ -270,7 +267,7 @@ export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVo
         </h1>
       </motion.div>
 
-      {/* ── TROPHY ── */}
+      {/* TROPHY */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -289,7 +286,7 @@ export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVo
         `}</style>
       </motion.div>
 
-      {/* ── BUTTONS ── */}
+      {/* BUTTONS */}
       <motion.div
         initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.65, delay: 0.35, ease: 'easeOut' }}
@@ -302,7 +299,7 @@ export default function HomeScreen({ onPlay, onLearn, sfxVol, setSfxVol, musicVo
           style={{
             position: 'relative', width: '100%', padding: '20px 0',
             borderRadius: 22, border: 'none', cursor: 'pointer', overflow: 'hidden',
-            /* Green-Yellow-Red gradient — FIFA colors */
+            /* Green-Yellow-Red gradient - FIFA colors */
             background: 'linear-gradient(135deg, #00A550 0%, #FFD700 50%, #E8001C 100%)',
             fontSize: 22, fontWeight: 900, color: '#fff',
             fontFamily: 'Orbitron, sans-serif', letterSpacing: 4,

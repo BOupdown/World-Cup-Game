@@ -1,8 +1,6 @@
-/* ── Flag rendering that works on every platform ──────────────────────────
-   Windows doesn't render regional-indicator flag emojis (shows "FR", "BR"…).
-   We decode the emoji to its ISO country code and serve a real SVG image
-   from flagcdn.com instead. Non-flag emojis pass through unchanged.
-   ──────────────────────────────────────────────────────────────────────── */
+// Windows doesn't render flag emojis (shows "FR", "BR"...), so we decode the
+// emoji into its ISO country code and load a real SVG from flagcdn.com.
+// Non-flag emojis are rendered as-is.
 
 /* Decode a flag emoji (two regional indicators) → ISO 3166-1 alpha-2 code */
 function flagEmojiToCode(str) {
@@ -35,7 +33,7 @@ export function codeFromString(str) {
 export function Flag({ emoji, size = 24, style = {} }) {
   const code = codeFromString(emoji);
   if (!code) {
-    // Not a flag (globe, etc.) — render as-is
+    // Not a flag (globe, etc.) - render as-is
     return <span style={{ fontSize: size, ...style }}>{emoji}</span>;
   }
   return (
@@ -67,7 +65,7 @@ export function FlagText({ text, size = 18, style = {}, gap = 7 }) {
   const code = codeFromString(head);
 
   if (!code) {
-    // No flag (e.g. "???") — plain text
+    // No flag (e.g. "???") - plain text
     return <span style={style}>{text}</span>;
   }
   return (

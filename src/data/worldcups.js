@@ -1,7 +1,7 @@
 export const worldCups = [
   {
     year: 1930, host: "Uruguay", winner: "🇺🇾 Uruguay", runnerUp: "🇦🇷 Argentine",
-    topScorer: "Guillermo Stábile (ARG) — 8 buts",
+    topScorer: "Guillermo Stábile (ARG) - 8 buts",
     teams: 13, goals: 70,
     flag: "🇺🇾",
     color: "#8B4513",
@@ -14,7 +14,7 @@ export const worldCups = [
   },
   {
     year: 1934, host: "Italie", winner: "🇮🇹 Italie", runnerUp: "🇨🇿 Tchécoslovaquie",
-    topScorer: "Oldřich Nejedlý (TCH) — 5 buts",
+    topScorer: "Oldřich Nejedlý (TCH) - 5 buts",
     teams: 16, goals: 70,
     flag: "🇮🇹",
     color: "#006400",
@@ -27,7 +27,7 @@ export const worldCups = [
   },
   {
     year: 1938, host: "France", winner: "🇮🇹 Italie", runnerUp: "🇭🇺 Hongrie",
-    topScorer: "Leônidas (BRE) — 7 buts",
+    topScorer: "Leônidas (BRE) - 7 buts",
     teams: 15, goals: 84,
     flag: "🇫🇷",
     color: "#00008B",
@@ -40,20 +40,20 @@ export const worldCups = [
   },
   {
     year: 1950, host: "Brésil", winner: "🇺🇾 Uruguay", runnerUp: "🇧🇷 Brésil",
-    topScorer: "Ademir (BRE) — 9 buts",
+    topScorer: "Ademir (BRE) - 9 buts",
     teams: 13, goals: 88,
     flag: "🇧🇷",
     color: "#FFD700",
     facts: [
       "Le 'Maracanazo' : Uruguay bat le Brésil devant 200 000 spectateurs",
       "Pas de finale officielle, un groupe final à la ronde",
-      "Maracanã construit pour l'occasion — plus grand stade du monde",
+      "Maracanã construit pour l'occasion - plus grand stade du monde",
       "L'Angleterre participe pour la 1ère fois",
     ],
   },
   {
     year: 1954, host: "Suisse", winner: "🇩🇪 Allemagne de l'Ouest", runnerUp: "🇭🇺 Hongrie",
-    topScorer: "Sándor Kocsis (HON) — 11 buts",
+    topScorer: "Sándor Kocsis (HON) - 11 buts",
     teams: 16, goals: 140,
     flag: "🇨🇭",
     color: "#C41E3A",
@@ -66,7 +66,7 @@ export const worldCups = [
   },
   {
     year: 1958, host: "Suède", winner: "🇧🇷 Brésil", runnerUp: "🇸🇪 Suède",
-    topScorer: "Just Fontaine (FRA) — 13 buts",
+    topScorer: "Just Fontaine (FRA) - 13 buts",
     teams: 16, goals: 126,
     flag: "🇸🇪",
     color: "#006AA7",
@@ -79,7 +79,7 @@ export const worldCups = [
   },
   {
     year: 1962, host: "Chili", winner: "🇧🇷 Brésil", runnerUp: "🇨🇿 Tchécoslovaquie",
-    topScorer: "6 joueurs à égalité — 4 buts",
+    topScorer: "6 joueurs à égalité - 4 buts",
     teams: 16, goals: 89,
     flag: "🇨🇱",
     color: "#D52B1E",
@@ -92,7 +92,7 @@ export const worldCups = [
   },
   {
     year: 1966, host: "Angleterre", winner: "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Angleterre", runnerUp: "🇩🇪 Allemagne de l'Ouest",
-    topScorer: "Eusébio (POR) — 9 buts",
+    topScorer: "Eusébio (POR) - 9 buts",
     teams: 16, goals: 89,
     flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     color: "#C8102E",
@@ -100,12 +100,12 @@ export const worldCups = [
       "Angleterre remporte son unique titre à Wembley",
       "But controversé de Hurst : la balle a-t-elle franchi la ligne ?",
       "Eusébio, star du Portugal, meilleur buteur du tournoi",
-      "La Corée du Nord élimine l'Italie — énorme surprise",
+      "La Corée du Nord élimine l'Italie - énorme surprise",
     ],
   },
   {
     year: 1970, host: "Mexique", winner: "🇧🇷 Brésil", runnerUp: "🇮🇹 Italie",
-    topScorer: "Gerd Müller (RFA) — 10 buts",
+    topScorer: "Gerd Müller (RFA) - 10 buts",
     teams: 16, goals: 95,
     flag: "🇲🇽",
     color: "#006847",
@@ -118,7 +118,7 @@ export const worldCups = [
   },
   {
     year: 1974, host: "Allemagne de l'Ouest", winner: "🇩🇪 Allemagne de l'Ouest", runnerUp: "🇳🇱 Pays-Bas",
-    topScorer: "Grzegorz Lato (POL) — 7 buts",
+    topScorer: "Grzegorz Lato (POL) - 7 buts",
     teams: 16, goals: 97,
     flag: "🇩🇪",
     color: "#000000",
@@ -131,7 +131,7 @@ export const worldCups = [
   },
   {
     year: 1978, host: "Argentine", winner: "🇦🇷 Argentine", runnerUp: "🇳🇱 Pays-Bas",
-    topScorer: "Mario Kempes (ARG) — 6 buts",
+    topScorer: "Mario Kempes (ARG) - 6 buts",
     teams: 16, goals: 102,
     flag: "🇦🇷",
     color: "#74ACDF",
@@ -144,7 +144,7 @@ export const worldCups = [
   },
   {
     year: 1982, host: "Espagne", winner: "🇮🇹 Italie", runnerUp: "🇩🇪 Allemagne de l'Ouest",
-    topScorer: "Paolo Rossi (ITA) — 6 buts",
+    topScorer: "Paolo Rossi (ITA) - 6 buts",
     teams: 24, goals: 146,
     flag: "🇪🇸",
     color: "#AA151B",
@@ -157,7 +157,7 @@ export const worldCups = [
   },
   {
     year: 1986, host: "Mexique", winner: "🇦🇷 Argentine", runnerUp: "🇩🇪 Allemagne de l'Ouest",
-    topScorer: "Gary Lineker (ANG) — 6 buts",
+    topScorer: "Gary Lineker (ANG) - 6 buts",
     teams: 24, goals: 132,
     flag: "🇲🇽",
     color: "#006847",
@@ -170,20 +170,20 @@ export const worldCups = [
   },
   {
     year: 1990, host: "Italie", winner: "🇩🇪 Allemagne de l'Ouest", runnerUp: "🇦🇷 Argentine",
-    topScorer: "Salvatore Schillaci (ITA) — 6 buts",
+    topScorer: "Salvatore Schillaci (ITA) - 6 buts",
     teams: 24, goals: 115,
     flag: "🇮🇹",
     color: "#009246",
     facts: [
       "CdM la moins prolifique (2,21 buts/match)",
       "Schillaci, révélation italienne, Soulier d'Or",
-      "Cameroun élimine l'Argentine en phase de groupes — choc",
+      "Cameroun élimine l'Argentine en phase de groupes - choc",
       "RFA bat l'Argentine grâce à un pénalty controversé",
     ],
   },
   {
     year: 1994, host: "États-Unis", winner: "🇧🇷 Brésil", runnerUp: "🇮🇹 Italie",
-    topScorer: "Hristo Stoichkov (BUL) & Oleg Salenko (RUS) — 6 buts",
+    topScorer: "Hristo Stoichkov (BUL) & Oleg Salenko (RUS) - 6 buts",
     teams: 24, goals: 141,
     flag: "🇺🇸",
     color: "#3C3B6E",
@@ -196,7 +196,7 @@ export const worldCups = [
   },
   {
     year: 1998, host: "France", winner: "🇫🇷 France", runnerUp: "🇧🇷 Brésil",
-    topScorer: "Davor Šuker (CRO) — 6 buts",
+    topScorer: "Davor Šuker (CRO) - 6 buts",
     teams: 32, goals: 171,
     flag: "🇫🇷",
     color: "#002395",
@@ -209,7 +209,7 @@ export const worldCups = [
   },
   {
     year: 2002, host: "Corée du Sud / Japon", winner: "🇧🇷 Brésil", runnerUp: "🇩🇪 Allemagne",
-    topScorer: "Ronaldo (BRE) — 8 buts",
+    topScorer: "Ronaldo (BRE) - 8 buts",
     teams: 32, goals: 161,
     flag: "🇰🇷",
     color: "#C60C30",
@@ -217,12 +217,12 @@ export const worldCups = [
       "Première CdM organisée en Asie",
       "Première co-organisation (2 pays)",
       "Ronaldo 'le Phénomène' rédemption après 1998",
-      "Corée du Sud atteint les demi-finales — exploit historique",
+      "Corée du Sud atteint les demi-finales - exploit historique",
     ],
   },
   {
     year: 2006, host: "Allemagne", winner: "🇮🇹 Italie", runnerUp: "🇫🇷 France",
-    topScorer: "Miroslav Klose (ALL) — 5 buts",
+    topScorer: "Miroslav Klose (ALL) - 5 buts",
     teams: 32, goals: 147,
     flag: "🇩🇪",
     color: "#000000",
@@ -235,7 +235,7 @@ export const worldCups = [
   },
   {
     year: 2010, host: "Afrique du Sud", winner: "🇪🇸 Espagne", runnerUp: "🇳🇱 Pays-Bas",
-    topScorer: "Thomas Müller (ALL) & 4 autres — 5 buts",
+    topScorer: "Thomas Müller (ALL) & 4 autres - 5 buts",
     teams: 32, goals: 145,
     flag: "🇿🇦",
     color: "#007A4D",
@@ -248,7 +248,7 @@ export const worldCups = [
   },
   {
     year: 2014, host: "Brésil", winner: "🇩🇪 Allemagne", runnerUp: "🇦🇷 Argentine",
-    topScorer: "James Rodríguez (COL) — 6 buts",
+    topScorer: "James Rodríguez (COL) - 6 buts",
     teams: 32, goals: 171,
     flag: "🇧🇷",
     color: "#009C3B",
@@ -261,20 +261,20 @@ export const worldCups = [
   },
   {
     year: 2018, host: "Russie", winner: "🇫🇷 France", runnerUp: "🇭🇷 Croatie",
-    topScorer: "Harry Kane (ANG) — 6 buts",
+    topScorer: "Harry Kane (ANG) - 6 buts",
     teams: 32, goals: 169,
     flag: "🇷🇺",
     color: "#003087",
     facts: [
       "France 2e titre, génération Mbappé-Griezmann-Kanté",
       "Mbappé, 19 ans, 2e jeune buteur en finale après Pelé",
-      "Croatie finaliste — exploit pour 4 millions d'habitants",
+      "Croatie finaliste - exploit pour 4 millions d'habitants",
       "Var utilisé pour la 1ère fois en Coupe du Monde",
     ],
   },
   {
     year: 2022, host: "Qatar", winner: "🇦🇷 Argentine", runnerUp: "🇫🇷 France",
-    topScorer: "Kylian Mbappé (FRA) — 8 buts",
+    topScorer: "Kylian Mbappé (FRA) - 8 buts",
     teams: 32, goals: 172,
     flag: "🇶🇦",
     color: "#8D1B3D",
@@ -292,7 +292,7 @@ export const worldCups = [
     flag: "🌎",
     color: "#00A550",
     facts: [
-      "1ère CdM à 48 équipes — 16 groupes de 3",
+      "1ère CdM à 48 équipes - 16 groupes de 3",
       "3 pays organisateurs pour la 1ère fois",
       "104 matchs au total (vs 64 en 2022)",
       "Finale au MetLife Stadium, New York/New Jersey",

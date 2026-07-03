@@ -16,7 +16,7 @@ const BTN_COLORS = [
 ];
 const LETTERS = ['A', 'B', 'C', 'D'];
 
-/* ── Streak badge ── */
+/* Streak badge */
 function StreakBadge({ streak, multiplier }) {
   if (streak < 2) return null;
   return (
@@ -41,7 +41,7 @@ function StreakBadge({ streak, multiplier }) {
   );
 }
 
-/* ── Timer bar ── */
+/* Timer bar */
 function TimerBar({ timeLeft, total }) {
   const pct = (timeLeft / total) * 100;
   const color = pct > 50 ? '#00C853' : pct > 25 ? '#FFD700' : '#E8001C';
@@ -56,7 +56,7 @@ function TimerBar({ timeLeft, total }) {
   );
 }
 
-/* ── Points popup ── */
+/* Points popup */
 function PointsPopup({ points, multiplier }) {
   return (
     <motion.div
@@ -76,7 +76,7 @@ function PointsPopup({ points, multiplier }) {
   );
 }
 
-/* ── Answer button ── */
+/* Answer button */
 function AnswerButton({ text, index, onClick, selected, correct, revealed }) {
   const c = BTN_COLORS[index];
   const isCorrect = revealed && index === correct;
@@ -136,7 +136,7 @@ function AnswerButton({ text, index, onClick, selected, correct, revealed }) {
   );
 }
 
-/* ── Main ── */
+/* Main */
 export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, onToggleMute, highScore }) {
   const [q, setQ]               = useState(() => nextQuestion());
   const [score, setScore]       = useState(0);
@@ -159,7 +159,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
 
   const multiplier = getMultiplier(streak);
 
-  /* ── Quit handlers ── */
+  /* Quit handlers */
   const handleQuitRequest = useCallback(() => {
     pausedRef.current = true;     // freeze countdown while deciding
     setShowQuitConfirm(true);
@@ -176,7 +176,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
     onQuit();
   }, [onQuit]);
 
-  /* ── Advance to next question ── */
+  /* Advance to next question */
   const advance = useCallback(() => {
     advRef.current = setTimeout(() => {
       playSfx('transition');
@@ -195,7 +195,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
     }, 1100);
   }, [playSfx]);
 
-  /* ── Handle answer ── */
+  /* Handle answer */
   const handleAnswer = useCallback((ansIdx) => {
     if (revealed) return;
     clearInterval(timerRef.current);
@@ -230,7 +230,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
     }
   }, [revealed, q, streak, score, questionCount, advance, onGameOver, playSfx]);
 
-  /* ── Countdown timer ── */
+  /* Countdown timer */
   useEffect(() => {
     timeRef.current = TIME_LIMIT;
     setTimeLeft(TIME_LIMIT);
@@ -267,7 +267,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
       display: 'flex', flexDirection: 'column',
       padding: '14px 16px 24px', overflow: 'hidden',
     }}>
-      {/* ── HEADER ── */}
+      {/* HEADER */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10, zIndex: 1 }}>
         {/* Score */}
         <div style={{
@@ -339,7 +339,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
         <StreakBadge streak={streak} multiplier={multiplier}/>
       </div>
 
-      {/* ── QUESTION CARD ── */}
+      {/* QUESTION CARD */}
       <AnimatePresence mode="wait">
         <motion.div key={cardKey}
           initial={{ x: 80, opacity: 0, scale: 0.96 }}
@@ -365,7 +365,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
         </motion.div>
       </AnimatePresence>
 
-      {/* ── ANSWERS ── */}
+      {/* ANSWERS */}
       <AnimatePresence mode="wait">
         <motion.div key={`ans-${cardKey}`}
           style={{ display: 'flex', flexDirection: 'column', gap: 9, zIndex: 1, flex: 1 }}>
@@ -376,7 +376,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
         </motion.div>
       </AnimatePresence>
 
-      {/* ── OVERLAYS ── */}
+      {/* OVERLAYS */}
       {showFlash && (
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: [0, 0.5, 0] }}
@@ -394,7 +394,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
         <PointsPopup points={lastPoints} multiplier={multiplier}/>
       )}
 
-      {/* ── QUIT CONFIRMATION ── */}
+      {/* QUIT CONFIRMATION */}
       <AnimatePresence>
         {showQuitConfirm && (
           <motion.div

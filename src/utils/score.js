@@ -1,6 +1,4 @@
-/* ── Scoring rules ─────────────────────────────────────────────────────────
-   Pure functions, extracted from GameScreen so they can be unit-tested.
-   ──────────────────────────────────────────────────────────────────────── */
+// Scoring rules, kept as pure functions so they can be unit-tested.
 export const BASE_POINTS = 100;   // guaranteed points for a correct answer
 export const SPEED_BONUS = 400;   // extra points for an instant answer
 

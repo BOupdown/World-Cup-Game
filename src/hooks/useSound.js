@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect } from 'react';
 
-/* ── Shared AudioContext ─────────────────────────────────────────────────── */
+/* Shared AudioContext */
 let _ctx = null;
 function getCtx() {
   if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -8,7 +8,7 @@ function getCtx() {
   return _ctx;
 }
 
-/* ── Tiny helpers ────────────────────────────────────────────────────────── */
+/* Tiny helpers */
 function osc(ctx, dest, type, freq, start, dur, vol, detune = 0) {
   const o = ctx.createOscillator();
   const g = ctx.createGain();
@@ -34,7 +34,7 @@ function noiseHit(ctx, dest, start, dur, vol, hp = 800) {
   src.start(start); src.stop(start + dur + 0.02);
 }
 
-/* ── SFX ─────────────────────────────────────────────────────────────────── */
+/* SFX */
 function sfxCorrect(ctx, vol) {
   const t = ctx.currentTime, out = ctx.destination;
   [[261.63,0],[329.63,.08],[392,.16],[523.25,.26]].forEach(([f, d]) => {
@@ -68,15 +68,13 @@ function sfxTransition(ctx, vol) {
   o.start(t); o.stop(t + 0.2);
 }
 
-/* ── Background music ──────────────────────────────────────────────────────
-   Strategy: schedule only 1 bar at a time every ~500ms (much lighter).
-   Melody: catchy 4-bar phrase looped. Chords + bass + drums.
-   ──────────────────────────────────────────────────────────────────────── */
+// Background music: a looped 4-bar phrase (melody + chords + bass + drums).
+// Bars are scheduled one at a time to keep the audio graph small.
 const BPM  = 116;
 const BEAT = 60 / BPM;
 const BAR  = BEAT * 4;
 
-// Melody notes — 4 bar phrase
+// Melody notes - 4 bar phrase
 const MELODY_PHRASE = [
   // bar 0
   [[523.25,.5],[659.25,.5],[783.99,1],[659.25,.5],[587.33,.5]],
@@ -104,7 +102,7 @@ const BASS_BARS = [
 function scheduleBar(ctx, dest, barIndex, barStart) {
   const b = barIndex % 4;
 
-  /* Kick — beat 1 & 3 */
+  /* Kick - beat 1 & 3 */
   [0, 2].forEach(beat => {
     const kt = barStart + beat * BEAT;
     const ko = ctx.createOscillator(), kg = ctx.createGain();
@@ -117,13 +115,13 @@ function scheduleBar(ctx, dest, barIndex, barStart) {
     ko.start(kt); ko.stop(kt + 0.24);
   });
 
-  /* Snare — beat 2 & 4 */
+  /* Snare - beat 2 & 4 */
   [1, 3].forEach(beat => {
     noiseHit(ctx, dest, barStart + beat * BEAT, 0.1, 0.22, 900);
     osc(ctx, dest, 'triangle', 210, barStart + beat * BEAT, 0.06, 0.07);
   });
 
-  /* Hi-hat — 8th notes */
+  /* Hi-hat - 8th notes */
   for (let e = 0; e < 8; e++) {
     const vol = e % 2 === 0 ? 0.055 : 0.03;
     noiseHit(ctx, dest, barStart + e * BEAT * 0.5, 0.03, vol, 8500);
@@ -134,7 +132,7 @@ function scheduleBar(ctx, dest, barIndex, barStart) {
     osc(ctx, dest, 'triangle', freq, barStart + beat * BEAT, BEAT * 0.85, 0.38);
   });
 
-  /* Chord pad — whole bar */
+  /* Chord pad - whole bar */
   osc(ctx, dest, 'sine', CHORD_ROOTS[b],  barStart, BAR * 0.92, 0.05);
   osc(ctx, dest, 'sine', CHORD_THIRDS[b], barStart, BAR * 0.92, 0.04);
   osc(ctx, dest, 'sine', CHORD_FIFTHS[b], barStart, BAR * 0.92, 0.035);
@@ -180,7 +178,7 @@ function startBackgroundMusic(ctx, vol) {
   };
 }
 
-/* ── React hook ──────────────────────────────────────────────────────────── */
+/* React hook */
 export function useSound(sfxVol = 0.7, musicVol = 0.3) {
   const musicRef    = useRef(null);
   const sfxVolRef   = useRef(sfxVol);
@@ -197,14 +195,14 @@ export function useSound(sfxVol = 0.7, musicVol = 0.3) {
       if      (key === 'correct')    sfxCorrect(ctx, v);
       else if (key === 'wrong')      sfxWrong(ctx, v);
       else if (key === 'transition') sfxTransition(ctx, v);
-    } catch { /* Web Audio unavailable — play silently without SFX */ }
+    } catch { /* Web Audio unavailable - play silently without SFX */ }
   }, []);
 
   const startMusic = useCallback(() => {
     if (musicRef.current) return;
     try {
       musicRef.current = startBackgroundMusic(getCtx(), musicVolRef.current * 0.5);
-    } catch { /* Web Audio unavailable — play silently without music */ }
+    } catch { /* Web Audio unavailable - play silently without music */ }
   }, []);
 
   const stopMusic = useCallback(() => {

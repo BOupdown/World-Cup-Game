@@ -116,7 +116,7 @@ function Card({ wc, onNext, onPrev, isFirst, isLast, index, total }) {
               textShadow: `0 0 16px ${wc.color}88`,
               display: 'flex', alignItems: 'center', gap: 8 }}>
               <Flag emoji={wc.flag} size={18}/>
-              <span>{wc.year} — Le saviez-vous ?</span>
+              <span>{wc.year} - Le saviez-vous ?</span>
             </div>
             {wc.facts.map((fact, i) => (
               <motion.div key={i}

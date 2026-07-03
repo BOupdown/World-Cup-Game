@@ -13,7 +13,7 @@ export default function ProgressBar({ current, total }) {
         transition={{ duration: 0.45, ease: 'easeOut' }}
         style={{
           height: '100%', borderRadius: 99,
-          /* Green → Yellow → Red — FIFA tri-color */
+          /* Green → Yellow → Red - FIFA tri-color */
           background: 'linear-gradient(90deg, #00A550, #FFD700, #E8001C)',
           boxShadow: '0 0 10px #FFD70088',
         }}

@@ -1,76 +1,68 @@
-<div align="center">
+# World Cup Quiz 2026
 
-# 🏆 World Cup Quiz 2026
+Un mini-jeu mobile de quiz sur la Coupe du Monde, inspiré de Block Blast.
 
-### Un mini-jeu mobile addictif sur la Coupe du Monde, inspiré de Block Blast & Tinder
-
-[![Jouer en ligne](https://img.shields.io/badge/▶_JOUER_MAINTENANT-00A550?style=for-the-badge&logoColor=white)](https://boupdown.github.io/World-Cup-Game/)
+**[Jouer en ligne](https://boupdown.github.io/World-Cup-Game/)**
 
 [![CI/CD](https://github.com/BOupdown/World-Cup-Game/actions/workflows/deploy.yml/badge.svg)](https://github.com/BOupdown/World-Cup-Game/actions/workflows/deploy.yml)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-tested-6E9F18?style=flat&logo=vitest&logoColor=white)
 
-<!-- 👉 Remplace cette ligne par un GIF du gameplay : ![Gameplay](docs/demo.gif) -->
+<!-- ![Gameplay](docs/demo.gif) -->
 
-</div>
+## Le concept
 
----
+Un quiz football en mode survie : plus tu réponds vite, plus tu marques de points.
+Les bonnes réponses enchaînées activent des multiplicateurs (x2 à partir de 3, x3 à partir de 6).
+Une seule erreur ou un chrono à zéro et la partie est finie. Le meilleur score est sauvegardé.
 
-## 🎮 Le concept
+Tout est pensé mobile-first : pas de bouton "question suivante", les questions s'enchaînent
+automatiquement avec vibrations, sons et animations.
 
-Un **quiz football en mode survie infini**. Réponds le plus vite possible : plus tu es rapide, plus tu marques. Enchaîne les bonnes réponses pour activer des multiplicateurs, et bats ton record. Une seule erreur — ou le chrono à zéro — et c'est terminé.
+## Fonctionnalités
 
-L'expérience est pensée **100% mobile-first** : pas de bouton « question suivante », tout s'enchaîne automatiquement avec feedback haptique, sons et animations fluides.
+- Mode survie infini, les questions se recyclent sans limite
+- Score de vitesse : timer de 10s par question
+- Multiplicateurs de série
+- Meilleur score persistant (localStorage)
+- Bande-son entièrement générée avec le Web Audio API : aucun fichier audio,
+  la musique de fond et les effets sont synthétisés note par note
+- Mode "Apprendre" : fiches sur les 23 éditions de la Coupe du Monde (1930 à 2026)
+- Vibrations sur mobile (API Vibration)
+- Drapeaux affichés en vraies images SVG (les emojis drapeaux ne s'affichent pas sous Windows)
 
-## ✨ Fonctionnalités
-
-- ♾️ **Mode survie infini** — les questions se recyclent sans limite
-- ⚡ **Score de vitesse** — un timer de 10s par question, plus tu réponds vite plus tu gagnes de points
-- 🔥 **Multiplicateurs de série** — 3 bonnes réponses → ×2, 6 → ×3
-- 🏆 **Meilleur score persistant** — sauvegardé en `localStorage`
-- 🎵 **Bande-son générée en temps réel** via le **Web Audio API** — musique, effets et transitions, **zéro fichier audio**
-- 📚 **Mode Apprendre** — fiches interactives sur les 23 éditions de la Coupe du Monde (1930 → 2026)
-- 📳 **Feedback haptique** sur mobile (vibrations)
-- 🎨 **Direction artistique** aux couleurs de la Coupe du Monde (vert / jaune / rouge), trophée FIFA dessiné en SVG
-
-## 🛠️ Stack technique
+## Stack
 
 | Outil | Usage |
 |-------|-------|
-| **React 18** | UI et gestion d'état |
-| **Vite** | Build & dev server |
-| **Framer Motion** | Animations, transitions de cartes, micro-interactions |
-| **Web Audio API** | Synthèse audio temps réel (musique + SFX) |
-| **localStorage** | Persistance du meilleur score |
-| **Vitest** | Tests unitaires (score, drapeaux, intégrité des données) |
-| **ESLint** | Qualité de code, exécuté dans la CI |
-| **Docker + nginx** | Image de production multi-stage, publiée sur GHCR |
-| **GitHub Actions + Pages** | Pipeline CI/CD complet |
+| React 18 + Vite | UI |
+| Framer Motion | Animations et transitions |
+| Web Audio API | Synthèse audio temps réel |
+| Vitest | Tests unitaires |
+| ESLint | Lint, exécuté dans la CI |
+| Docker + nginx | Image de production multi-stage, publiée sur GHCR |
+| GitHub Actions | CI/CD |
 
-> 💡 **Le détail technique dont je suis le plus fier :** toute la bande-son est **synthétisée en code** (oscillateurs, enveloppes, réverb) — aucun MP3 n'est chargé. La musique de fond est une boucle mélodique générée note par note.
+## Pipeline CI/CD
 
-## ⚙️ Pipeline CI/CD
-
-Chaque push sur `main` déclenche automatiquement :
+Chaque push sur `main` déclenche :
 
 ```mermaid
 flowchart LR
-    A[📦 Push sur main] --> B[🔍 Lint ESLint]
-    B --> C[🧪 Tests Vitest]
-    C --> D[🏗️ Build Vite]
-    C --> E[🐳 Build image Docker]
-    D --> F[🌐 Deploy GitHub Pages]
-    E --> G[📤 Push vers GHCR]
+    A[Push sur main] --> B[Lint]
+    B --> C[Tests]
+    C --> D[Build Vite]
+    C --> E[Build image Docker]
+    D --> F[Deploy GitHub Pages]
+    E --> G[Push vers GHCR]
 ```
 
-- **Quality gate** : lint + 18 tests unitaires bloquent le déploiement en cas d'échec
-- **Deploy** : build Vite publié sur GitHub Pages
-- **Docker** : image nginx multi-stage taguée `latest` + SHA du commit, poussée sur GitHub Container Registry
+Le lint et les tests font office de quality gate : en cas d'échec, rien n'est déployé.
+L'image Docker est taguée `latest` + SHA du commit et poussée sur GitHub Container Registry.
 
-## 🚀 Lancer en local
+## Lancer en local
 
 ```bash
 git clone https://github.com/BOupdown/World-Cup-Game.git
@@ -81,39 +73,37 @@ npm test           # tests unitaires
 npm run lint       # analyse statique
 ```
 
-## 🐳 Lancer avec Docker
+## Lancer avec Docker
 
 ```bash
-# Depuis l'image publiée (GHCR)
+# depuis l'image publiée
 docker run -p 8080:80 ghcr.io/boupdown/world-cup-game:latest
 
-# Ou build local avec docker compose
+# ou en local
 docker compose up --build
 ```
 
-Puis ouvre [http://localhost:8080](http://localhost:8080).
+Puis ouvrir http://localhost:8080.
 
-## 📁 Architecture
+## Architecture
 
 ```
 src/
-├── App.jsx              # Routing entre écrans + état global
+├── App.jsx                  # navigation entre écrans + état global
 ├── screens/
-│   ├── HomeScreen.jsx       # Accueil (trophée SVG, boutons, options)
-│   ├── GameScreen.jsx       # Gameplay (timer, score, multiplicateurs)
-│   ├── GameOverScreen.jsx   # Score final, record, rangs
-│   └── LearnScreen.jsx      # Fiches des 23 éditions
-├── components/         # Particules, barres de progression, étoiles
+│   ├── HomeScreen.jsx       # accueil (trophée SVG, options)
+│   ├── GameScreen.jsx       # gameplay (timer, score, multiplicateurs)
+│   ├── GameOverScreen.jsx   # score final, record
+│   └── LearnScreen.jsx      # fiches des 23 éditions
+├── components/              # drapeaux, particules, barres de progression
 ├── hooks/
-│   ├── useSound.js          # Moteur audio Web Audio API
-│   └── useHaptic.js         # Vibrations mobile
-└── data/               # Questions du quiz + données des Coupes du Monde
+│   ├── useSound.js          # moteur audio Web Audio API
+│   └── useHaptic.js         # vibrations mobile
+├── utils/
+│   └── score.js             # règles de scoring (testées)
+└── data/                    # questions + données des Coupes du Monde
 ```
 
 ---
 
-<div align="center">
-
-Développé par **[Omar Benzeroual](https://www.linkedin.com/in/omar-benzeroual-50898921b/)**
-
-</div>
+Développé par [Omar Benzeroual](https://www.linkedin.com/in/omar-benzeroual-50898921b/)

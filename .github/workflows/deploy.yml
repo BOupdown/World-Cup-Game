@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ── 1. Quality gate: lint + unit tests ─────────────────────────────
+  # 1. Quality gate: lint + unit tests
   quality:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: Unit tests
         run: npm test
 
-  # ── 2. Build & deploy to GitHub Pages ──────────────────────────────
+  # 2. Build & deploy to GitHub Pages
   deploy-pages:
     needs: quality
     if: github.event_name == 'push'
@@ -64,7 +64,7 @@ jobs:
       - uses: actions/deploy-pages@v4
         id: deployment
 
-  # ── 3. Build & push Docker image to GitHub Container Registry ──────
+  # 3. Build & push Docker image to GitHub Container Registry
   docker:
     needs: quality
     if: github.event_name == 'push'

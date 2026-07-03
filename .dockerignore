@@ -1,8 +1,6 @@
 node_modules
 dist
-.git
-.github
-.claude
+.*
 *.md
-.gitignore
-.dockerignore
+Dockerfile
+docker-compose.yml
