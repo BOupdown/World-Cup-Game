@@ -4,10 +4,9 @@ import Particles from '../components/Particles.jsx';
 import { Flag } from '../components/Flag.jsx';
 import { haptic } from '../hooks/useHaptic.js';
 import { nextQuestion } from '../data/questions.js';
+import { getMultiplier, computePoints } from '../utils/score.js';
 
-const TIME_LIMIT   = 10;      // seconds per question
-const BASE_POINTS  = 100;
-const SPEED_BONUS  = 400;     // max extra points for instant answer
+const TIME_LIMIT = 10;        // seconds per question
 
 const BTN_COLORS = [
   { base: '#E8001C', dark: '#A3001A' },
@@ -158,7 +157,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
   const timeRef   = useRef(TIME_LIMIT);
   const pausedRef = useRef(false);
 
-  const multiplier = streak >= 6 ? 3 : streak >= 3 ? 2 : 1;
+  const multiplier = getMultiplier(streak);
 
   /* ── Quit handlers ── */
   const handleQuitRequest = useCallback(() => {
@@ -178,7 +177,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
   }, [onQuit]);
 
   /* ── Advance to next question ── */
-  const advance = useCallback((newScore, newStreak) => {
+  const advance = useCallback(() => {
     advRef.current = setTimeout(() => {
       playSfx('transition');
       setTimeout(() => {
@@ -202,9 +201,8 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
     clearInterval(timerRef.current);
     clearTimeout(advRef.current);
 
-    const elapsed    = TIME_LIMIT - timeRef.current;
-    const speedRatio = Math.max(0, 1 - elapsed / TIME_LIMIT);
-    const correct    = ansIdx === q.correct;
+    const elapsed = TIME_LIMIT - timeRef.current;
+    const correct = ansIdx === q.correct;
 
     setSelected(ansIdx);
     setRevealed(true);
@@ -213,8 +211,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
 
     if (correct) {
       const newStreak = streak + 1;
-      const mult      = newStreak >= 6 ? 3 : newStreak >= 3 ? 2 : 1;
-      const pts       = Math.round((BASE_POINTS + SPEED_BONUS * speedRatio) * mult);
+      const pts       = computePoints(elapsed, TIME_LIMIT, newStreak);
       const newScore  = score + pts;
 
       setStreak(newStreak);
@@ -224,7 +221,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
       setShowParts(true);
       playSfx('correct');
       haptic('medium');
-      advance(newScore, newStreak);
+      advance();
     } else {
       playSfx('wrong');
       haptic('error');
@@ -254,7 +251,7 @@ export default function GameScreen({ onGameOver, onQuit, playSfx, musicMuted, on
       }
     }, 100);
     return () => clearInterval(timerRef.current);
-  }, [cardKey]); // eslint-disable-line
+  }, [cardKey]); // restart countdown whenever a new card mounts
 
   useEffect(() => () => { clearInterval(timerRef.current); clearTimeout(advRef.current); }, []);
 

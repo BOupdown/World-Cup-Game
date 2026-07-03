@@ -197,14 +197,14 @@ export function useSound(sfxVol = 0.7, musicVol = 0.3) {
       if      (key === 'correct')    sfxCorrect(ctx, v);
       else if (key === 'wrong')      sfxWrong(ctx, v);
       else if (key === 'transition') sfxTransition(ctx, v);
-    } catch (e) {}
+    } catch { /* Web Audio unavailable — play silently without SFX */ }
   }, []);
 
   const startMusic = useCallback(() => {
     if (musicRef.current) return;
     try {
       musicRef.current = startBackgroundMusic(getCtx(), musicVolRef.current * 0.5);
-    } catch (e) {}
+    } catch { /* Web Audio unavailable — play silently without music */ }
   }, []);
 
   const stopMusic = useCallback(() => {

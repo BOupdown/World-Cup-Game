@@ -27,7 +27,7 @@ function specialCode(str) {
   return null;
 }
 
-function codeFromString(str) {
+export function codeFromString(str) {
   return flagEmojiToCode(str) || specialCode(str);
 }
 

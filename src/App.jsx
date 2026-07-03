@@ -14,7 +14,8 @@ function loadHighScore() {
   catch { return 0; }
 }
 function saveHighScore(s) {
-  try { localStorage.setItem(HS_KEY, String(s)); } catch {}
+  try { localStorage.setItem(HS_KEY, String(s)); }
+  catch { /* private-browsing mode: storage unavailable, score just won't persist */ }
 }
 
 const PAGE_VARIANTS = {

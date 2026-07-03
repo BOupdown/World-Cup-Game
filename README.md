@@ -6,9 +6,12 @@
 
 [![Jouer en ligne](https://img.shields.io/badge/▶_JOUER_MAINTENANT-00A550?style=for-the-badge&logoColor=white)](https://boupdown.github.io/World-Cup-Game/)
 
+[![CI/CD](https://github.com/BOupdown/World-Cup-Game/actions/workflows/deploy.yml/badge.svg)](https://github.com/BOupdown/World-Cup-Game/actions/workflows/deploy.yml)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white)
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=flat&logo=framer&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![Vitest](https://img.shields.io/badge/Vitest-tested-6E9F18?style=flat&logo=vitest&logoColor=white)
 
 <!-- 👉 Remplace cette ligne par un GIF du gameplay : ![Gameplay](docs/demo.gif) -->
 
@@ -42,9 +45,30 @@ L'expérience est pensée **100% mobile-first** : pas de bouton « question suiv
 | **Framer Motion** | Animations, transitions de cartes, micro-interactions |
 | **Web Audio API** | Synthèse audio temps réel (musique + SFX) |
 | **localStorage** | Persistance du meilleur score |
-| **GitHub Actions + Pages** | Déploiement continu |
+| **Vitest** | Tests unitaires (score, drapeaux, intégrité des données) |
+| **ESLint** | Qualité de code, exécuté dans la CI |
+| **Docker + nginx** | Image de production multi-stage, publiée sur GHCR |
+| **GitHub Actions + Pages** | Pipeline CI/CD complet |
 
 > 💡 **Le détail technique dont je suis le plus fier :** toute la bande-son est **synthétisée en code** (oscillateurs, enveloppes, réverb) — aucun MP3 n'est chargé. La musique de fond est une boucle mélodique générée note par note.
+
+## ⚙️ Pipeline CI/CD
+
+Chaque push sur `main` déclenche automatiquement :
+
+```mermaid
+flowchart LR
+    A[📦 Push sur main] --> B[🔍 Lint ESLint]
+    B --> C[🧪 Tests Vitest]
+    C --> D[🏗️ Build Vite]
+    C --> E[🐳 Build image Docker]
+    D --> F[🌐 Deploy GitHub Pages]
+    E --> G[📤 Push vers GHCR]
+```
+
+- **Quality gate** : lint + 18 tests unitaires bloquent le déploiement en cas d'échec
+- **Deploy** : build Vite publié sur GitHub Pages
+- **Docker** : image nginx multi-stage taguée `latest` + SHA du commit, poussée sur GitHub Container Registry
 
 ## 🚀 Lancer en local
 
@@ -52,8 +76,22 @@ L'expérience est pensée **100% mobile-first** : pas de bouton « question suiv
 git clone https://github.com/BOupdown/World-Cup-Game.git
 cd World-Cup-Game
 npm install
-npm run dev
+npm run dev        # serveur de dev
+npm test           # tests unitaires
+npm run lint       # analyse statique
 ```
+
+## 🐳 Lancer avec Docker
+
+```bash
+# Depuis l'image publiée (GHCR)
+docker run -p 8080:80 ghcr.io/boupdown/world-cup-game:latest
+
+# Ou build local avec docker compose
+docker compose up --build
+```
+
+Puis ouvre [http://localhost:8080](http://localhost:8080).
 
 ## 📁 Architecture
 

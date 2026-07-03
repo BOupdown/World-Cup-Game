@@ -1,11 +1,10 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { worldCups } from '../data/worldcups.js';
 import { Flag, FlagText } from '../components/Flag.jsx';
 
 function Card({ wc, onNext, onPrev, isFirst, isLast, index, total }) {
   const [flipped, setFlipped] = useState(false);
-  const dragStart = useRef(0);
 
   const handleDragEnd = (_, info) => {
     if (info.offset.x < -60 && !isLast)  onNext();
